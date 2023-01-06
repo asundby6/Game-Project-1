@@ -36,30 +36,69 @@ function shuffleDeck() {
 
 function startGame() {
     hidden = deck.pop();
-    dealerSum += hidden;
+    dealerSum += cardNumber(hidden);
     console.log(dealerSum);  // need to convert card to value
 
 
 
-    while (dealerSum < 17 && userSum <= 21) {
+    while (dealerSum < 17) {
 
 
     }
   
-}
+    for (let i = 0; i < 2; i++) {
+        let cardImg = document.createElement("img");
+        let card = deck.pop();
+        cardImg.src = "./cards/" + card + ".png";
+        
+        document.getElementById("userCards").append(cardImg);
+    }
 
-function cardValue() {
-    
+    document.getElementById("hit").addEventListener("click", hit);
+    document.getElementById("stand").addEventListener("click", stand);
+
 }
 
 function hit() {
+    if (!canHit) {
+        return;
+    }
+
+    let cardImg = document.createElement("img");
+    let card = deck.pop();
+    cardImg.src = "./cards/" + card + ".png";
+    
+    document.getElementById("userCards").append(cardImg);
+    
 
 }
 
 function stand() {
+    canHit = false;
+    
 
 }
 
+function cardNumber(card) {
+    splitValue = card.split("-") // 5-D = 5 of Diamonds
+    numberValue = splitValue[0];
+
+    // let faceCards = ["J", "Q", "K"];
+
+    // if (numberValue.includes(faceCards)) {
+    //     return 10;
+    // }
+
+    // if (isNaN(numberValue)) {
+    //     console.log(numberValue);    
+    // }
+
+    // if (numberValue == "A") {
+    //     return
+    // }
+
+    return parseInt(numberValue);
+}
 
 
 
