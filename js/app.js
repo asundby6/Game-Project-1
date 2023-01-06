@@ -83,19 +83,11 @@ function cardNumber(card) {
     splitValue = card.split("-") // 5-D = 5 of Diamonds
     numberValue = splitValue[0];
 
-    // let faceCards = ["J", "Q", "K"];
+    if (isNaN(numberValue)) {
+        console.log(numberValue);    
+    }
 
-    // if (numberValue.includes(faceCards)) {
-    //     return 10;
-    // }
-
-    // if (isNaN(numberValue)) {
-    //     console.log(numberValue);    
-    // }
-
-    // if (numberValue == "A") {
-    //     return
-    // }
+   
 
     return parseInt(numberValue);
 }
