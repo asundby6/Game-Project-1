@@ -102,12 +102,12 @@
                 userlink.innerText = currentUser.username;
                 header.innerText = "Welcome " + currentUser.fullname;
                 userlink.classList.replace("btn", "nav-link");
-                userlink.classList.add("btn-primary");
+                userlink.classList.remove("btn-primary");
                 userlink.href = "#";
 
                 signoutlink.innerText = "Signout";
                 signoutlink.classList.replace("btn", "nav-link");
-                signoutlink.classList.add("btn-success");
+                signoutlink.classList.remove("btn-success");
                 signoutlink.href = "javascript:Signout()";
             }
         }
