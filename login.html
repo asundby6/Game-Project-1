@@ -65,7 +65,7 @@
                 if(snapshot.exists()){
                     let dbpass = decPass(snapshot.val().password);
                     if(dbpass == pass.value){
-                        login();
+                        login(snapshot.val());
                     }
                 
                     else {
@@ -97,7 +97,7 @@ function decPass(dbpass){
         }
         else{
             localStorage.setItem("keepLoggedIn", "yes");
-            localStorage.setItem("user",JSON.stringify(user));
+            localStorage.setItem("user", JSON.stringify(user));
             window.location = "home.html";
             }
         }
