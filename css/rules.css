@@ -1,0 +1,21 @@
+body {
+    background-color: darkolivegreen;
+}
+h1 {
+    color: goldenrod;
+    text-align: center;
+}
+
+p {
+    margin-right: 5%;
+    margin-left: 5%;
+    color: black;
+    font-size: large;
+    font-weight: bold;
+
+}
+
+h2 {
+    text-align: center;
+    color: black;
+}

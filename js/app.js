@@ -8,19 +8,8 @@ var canHit = true;
 
 window.onload = function() {
     buildDeck();
-    // shuffleDeck();
+    shuffleDeck();
     startGame();
-}
-
-function buildDeck() {
-    let values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
-    let types = ["C", "D", "H", "S"];
-    deck = [];
-
-
-    deck.push("A-S", "A-S", "A-S", "A-S", "A-S", "A-S", "A-S", "A-S", "A-S", "A-S", "A-S", "A-S","A-S", "A-S", "A-S", "A-S", "A-S", "A-S", "A-S", "A-S", "A-S", "A-S", "A-S", "A-S","A-S", "A-S", "A-S", "A-S", "A-S", "A-S", "A-S", "A-S", "A-S", "A-S")
-    console.log(deck); // displays in console the shuffled deck values (REMOVE LATER)
-
 }
 
 // function buildDeck() {
@@ -28,12 +17,23 @@ function buildDeck() {
 //     let types = ["C", "D", "H", "S"];
 //     deck = [];
 
-//     for (let i = 0; i < types.length; i++){
-//         for (let k = 0; k < values.length; k++){
-//             deck.push(values[k] + "-" + types[i]); 
-//         }
-//     }
+//     deck.push("K-S", "K-S","K-S", "K-S","K-S", "K-S","K-S", "K-S","K-S", "K-S","K-S", "K-S","K-S", "K-S","K-S", "K-S","K-S", "K-S","K-S", "K-S","K-S", "K-S","K-S", "K-S","K-S", "K-S","K-S", "K-S","K-S", "K-S","K-S", "K-S","K-S", "K-S","K-S", "K-S");
+//     deck.push("A-S", "A-S", "A-S", "A-S", "A-S", "A-S", "A-S", "A-S", "A-S", "A-S", "A-S", "A-S","A-S", "A-S", "A-S", "A-S", "A-S", "A-S", "A-S", "A-S", "A-S", "A-S", "A-S", "A-S","A-S", "A-S", "A-S", "A-S", "A-S", "A-S", "A-S", "A-S", "A-S", "A-S")
+//     console.log(deck); // displays in console the shuffled deck values (REMOVE LATER)
+
 // }
+
+function buildDeck() {
+    let values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
+    let types = ["C", "D", "H", "S"];
+    deck = [];
+
+    for (let i = 0; i < types.length; i++){
+        for (let k = 0; k < values.length; k++){
+            deck.push(values[k] + "-" + types[i]); 
+        }
+    }
+}
 
 function shuffleDeck() {
     for (let i = 0; i < deck.length; i++){
@@ -53,6 +53,7 @@ function betting(level) {
 
 
 function startGame() {
+
     hidden = deck.pop();
     dealerSum += cardNumber(hidden);
     dealer_aceCount += checkAce(hidden);
@@ -65,25 +66,28 @@ function startGame() {
     document.getElementById("dealerCards").append(cardImg);
 
     let dealer_cardArray = [hidden, card];
-    console.log(dealer_cardArray);
-
     let user_cardArray = [];
+    let user_sumAceless = reduceAce(userSum, user_aceCount);
 
     for (let i = 0; i < 2; i++) {
+
         let cardImg = document.createElement("img");
         cardImg.id = "userCard" +i;
         let card = deck.pop();
         cardImg.src = "./cards/" + card + ".png";
+        document.getElementById("userCards").append(cardImg);
         userSum += cardNumber(card);
         user_aceCount += checkAce(card);
-        document.getElementById("userCards").append(cardImg);
+        user_sumAceless += checkAce(card);
         user_cardArray.push(card);
+        document.getElementById("userSum").innerText = userSum;
+
     }
-    console.log(user_cardArray)
+
 
     if (cardValue(user_cardArray[0]) == cardValue(user_cardArray[1])){
-        let userCard1 = user_cardArray[0];
-        let userCard2 = user_cardArray[1];
+        let uCard1 = user_cardArray[0];
+        let uCard2 = user_cardArray[1];
 
         let splitButton = document.createElement("button");
         splitButton.id = "split";
@@ -92,84 +96,133 @@ function startGame() {
         splitButton.style.width = "100px";
         splitButton.style.height = "50px";
         splitButton.style.fontSize = "20px";
-        splitButton.style.marginLeft = "20px";
+        splitButton.style.color = "black";
+        splitButton.style.fontWeight = "bold";
+        splitButton.style.backgroundColor = "goldenrod";
 
         splitButton.addEventListener("click", () => {            
-            split(userCard1, userCard2);
+            split(uCard1, uCard2);
         });
-    }
+        
+        document.getElementById("stand").addEventListener("click", () => {
+            let hit_btn = document.getElementById("hit");
+            let stand_btn = document.getElementById("stand");
+            let split_btn = document.getElementById("split");
+            remove(hit_btn);
+            remove(stand_btn);
+            remove(split_btn);
+        });
     
-    console.log(userSum);
+
+    // if(checkAce(user_cardArray[0]) == 1 || checkAce(user_cardArray[1]) == 1){
+    // document.getElementById("userSum").innerText = user_sumAceless + "/" + userSum;
+    // document.getElementById("userSum").innerText =  userSum;
+    // document.getElementById("hit").addEventListener("click", hit);
+    // document.getElementById("stand").addEventListener("click", stand);
+    // }
+    
     document.getElementById("userSum").innerText = userSum;
-    document.getElementById("dealerSum").innerText = cardNumber(card[0]);
-    console.log(dealerSum);
 
-    document.getElementById("hit").addEventListener("click", hit);
-    document.getElementById("stand").addEventListener("click", stand);
-
+    // if(checkAce(dealer_cardArray[0]) == 1 || checkAce(dealer_cardArray[1]) == 1){
+    // document.getElementById("dealerSum").innerText = cardNumber(dealer_cardArray[0]);
+    // document.getElementById("dealerSum").innerText = cardNumber(dealer_cardArray[1]);
+    // document.getElementById("hit").addEventListener("click", hit);
+    // document.getElementById("stand").addEventListener("click", stand);
+    // }
+}
+document.getElementById("hit").addEventListener("click", hit);
+document.getElementById("stand").addEventListener("click", stand);
 }
 
 function hit() {
     if (!canHit) {
+        stand();
+        let hit_btn = document.getElementById("hit");
+        remove(hit_btn);
+    }
+
+    if (userSum > 21 || reduceAce(userSum,user_aceCount) > 21) { //A, J, 8 -> 1 + 10 + 8
+        canHit = false;
         return;
     }
 
-    var a = sfxr.toAudio("7BMHBGEZ5yi8YuzS8Dv3p5RBLueV8CWZY8jfBD2nm9c1kB4nYoQETGpKn3eE3Au4APjmqsHvXdUAPZD187sLGN2UDYRfNfSddnm2zeC7gc4jBRQLmM7LEeWgX");
-    a.play();
-
-    let cardImg = document.createElement("img");
-    let card = deck.pop();
-    cardImg.src = "./cards/" + card + ".png";
-    userSum += cardNumber(card);
-    user_aceCount += checkAce(card);
-    document.getElementById("userCards").append(cardImg);
-    
-    if (reduceAce(userSum, user_aceCount) > 21) { //A, J, 8 -> 1 + 10 + 8
-        canHit = false;
-        stand();
+    else {
+        var a = sfxr.toAudio("7BMHBGEZ5yi8YuzS8Dv3p5RBLueV8CWZY8jfBD2nm9c1kB4nYoQETGpKn3eE3Au4APjmqsHvXdUAPZD187sLGN2UDYRfNfSddnm2zeC7gc4jBRQLmM7LEeWgX");
+        a.play();
+        let cardImg = document.createElement("img");
+        let card = deck.pop();
+        cardImg.src = "./cards/" + card + ".png";
+        document.getElementById("userCards").append(cardImg);
+        userSum += cardNumber(card);
+        document.getElementById("userSum").innerText =  userSum;
+        user_sumAceless = reduceAce(userSum, user_aceCount);
+        document.getElementById("userSum").innerText = user_sumAceless + "/" + userSum;
     }
-
-    document.getElementById("userSum").innerText = userSum;
+    
+    
 }
 
 function stand() {
-    dealerSum = reduceAce(dealerSum, dealer_aceCount);
-    userSum = reduceAce(userSum, user_aceCount);
+    startNextRound = document.createElement("button");
+    startNextRound.id = "startRound";
+    startNextRound.textContent = "Retry";
+    startNextRound.style.width = "100px";
+    startNextRound.style.height = "50px";
+    startNextRound.style.backgroundColor = "goldenrod";
+    startNextRound.style.fontSize = "20px";
+    startNextRound.style.color = "black";
+    startNextRound.style.fontWeight = "bold";
+    document.getElementById("buttons").append(startNextRound);
 
-    canHit = false;
-    document.getElementById("hidden").src = "./cards/" + hidden + ".png";
+    startNextRound.addEventListener("click", () =>{
+        window.location.reload();
+    });
+    
+    stand_btn = document.getElementById("stand");
+    remove(stand_btn); 
+    
 
-    let message = "";
-
-    while (dealerSum < 17 && canHit == false) {
+    while(reduceAce(dealerSum, dealer_aceCount) < 17){
+        document.getElementById("hidden").src = "./cards/" + hidden + ".png";
+        dealer_sumAceless = reduceAce(dealerSum, dealer_aceCount);
         let cardImg = document.createElement("img");
         let card = deck.pop();
         cardImg.src = "./cards/" + card + ".png";
         dealerSum += cardNumber(card);
         dealer_aceCount += checkAce(card);
         document.getElementById("dealerCards").append(cardImg);
+        document.getElementById("dealerSum").innerText = dealer_sumAceless + "/" + dealerSum;
+        
     }
 
-    if (userSum > 21) {
+    dealer_sumAceless = reduceAce(dealerSum, dealer_aceCount);
+    user_sumAceless = reduceAce(userSum, user_aceCount);
+
+    if (user_sumAceless > 21) {
         message = "You Lose!";
     }
-    else if (dealerSum > 21) {
+    else if (dealer_sumAceless > 21) {
         message = "You win!";
     }
-    else if (userSum == dealerSum) {
+    else if (user_sumAceless == dealer_sumAceless) {
         message = "Push!";
     }
-    else if (userSum > dealerSum) {
+    else if (user_sumAceless > dealer_sumAceless) {
         message = "You Win!";
     }
-    else if (userSum < dealerSum) {
+    else if (user_sumAceless < dealer_sumAceless) {
         message = "You Lose!";
+        
     }
-    
-    document.getElementById("userSum").innerText = userSum;
-    document.getElementById("dealerSum").innerText = dealerSum;
+  
+
+    document.getElementById("userSum").innerText = user_sumAceless + "/" + userSum;
+    document.getElementById("dealerSum").innerText = dealer_sumAceless + "/" + dealerSum;
     document.getElementById("results").innerText = message;
-}
+
+
+    }
+
 
 function cardNumber(card) { // used to calculate hand total
     splitValue = card.split("-"); // 5-D = 5 of Diamonds
@@ -214,13 +267,12 @@ function split(userCard1, userCard2){
     let hit_btn = document.getElementById("hit");
     let stand_btn = document.getElementById("stand");
     let split_btn = document.getElementById("split");
-    let userValue = document.getElementById("user_sum");
+    let userValue = document.getElementById("userSum");
 
     remove(hit_btn);
     remove(stand_btn);
     remove(split_btn);
     remove(userValue);
-
     
     div1 = document.createElement("div");   // creates  div1 top layer of middle
     div1.id = "splitTop";
@@ -250,7 +302,11 @@ function split(userCard1, userCard2){
     hit_btn1.style.width = "100px";
     hit_btn1.style.height = "50px";
     hit_btn1.style.fontSize = "20px";
-    hit_btn1.style.marginLeft = "30px";
+    hit_btn1.style.display = "block";
+    hit_btn1.style.marginLeft = "150px";
+    hit_btn1.style.color = "black";
+    hit_btn1.style.fontWeight = "bold";
+    hit_btn1.style.backgroundColor = "goldenrod";
     div1.append(hit_btn1);
 
     stand_btn1 = document.createElement("button"); // creates top stand button
@@ -260,7 +316,11 @@ function split(userCard1, userCard2){
     stand_btn1.style.height = "50px";
     stand_btn1.style.fontSize = "20px";
     stand_btn1.style.display = "block";
-    stand_btn1.style.marginLeft = "30px";
+    stand_btn1.style.marginLeft = "150px";
+    stand_btn1.style.color = "black";
+    stand_btn1.style.fontWeight = "bold";
+    stand_btn1.style.backgroundColor = "goldenrod";
+
     div1.append(stand_btn1);
     
     userCard1 = document.getElementById("userCard0");   // adds card1 to its own div
@@ -272,11 +332,15 @@ function split(userCard1, userCard2){
 
     hit_btn2 = document.createElement("button");    // creates bottom hit button
     hit_btn2.textContent = "Hit";
-    hit_btn2.id = "hit2";
+    hit_btn2.id = "hit1";
     hit_btn2.style.width = "100px";
     hit_btn2.style.height = "50px";
     hit_btn2.style.fontSize = "20px";
-    hit_btn2.style.marginLeft = "30px";
+    hit_btn2.style.display = "block";
+    hit_btn2.style.marginLeft = "150px";
+    hit_btn2.style.color = "black";
+    hit_btn2.style.fontWeight = "bold";
+    hit_btn2.style.backgroundColor = "goldenrod";
     div2.append(hit_btn2);
 
     stand_btn2 = document.createElement("button"); // creates bottom stand button
@@ -286,7 +350,10 @@ function split(userCard1, userCard2){
     stand_btn2.style.height = "50px";
     stand_btn2.style.fontSize = "20px";
     stand_btn2.style.display = "block";
-    stand_btn2.style.marginLeft = "30px";
+    stand_btn2.style.marginLeft = "150px";
+    stand_btn2.style.color = "black";
+    stand_btn2.style.fontWeight = "bold";
+    stand_btn2.style.backgroundColor = "goldenrod";
     div2.append(stand_btn2);
 
     userCard2 = document.getElementById("userCard1");   // adds card2 to its own div
@@ -296,6 +363,16 @@ function split(userCard1, userCard2){
     userCard2.style.marginLeft = "100px";
     div2.append(userCard2);
 
+    topResults = document.createElement("p");
+    topResults.id = "topResults";
+    topResults.style.color = "red";
+    div1.append(topResults);
+
+    bottomResults = document.createElement("p");
+    bottomResults.id = "bottomResults";
+    bottomResults.style.color = "red";
+    div2.append(bottomResults);
+
     let user_aceCount1 = 0;
     let user_aceCount2 = 0;
 
@@ -303,7 +380,6 @@ function split(userCard1, userCard2){
     canHit2 = true;
 
     function splitHit(handNumber){
-
         var a = sfxr.toAudio("7BMHBGEZ5yi8YuzS8Dv3p5RBLueV8CWZY8jfBD2nm9c1kB4nYoQETGpKn3eE3Au4APjmqsHvXdUAPZD187sLGN2UDYRfNfSddnm2zeC7gc4jBRQLmM7LEeWgX");
         a.play();
 
@@ -316,10 +392,7 @@ function split(userCard1, userCard2){
 
         if(handNumber == 1){
             if (!canHit1) {
-                remove(hit_btn1);
-                message_winLoss(1);
-
-                return;
+                splitStand(1);
             }
 
             userSum1 += cardNumber(card);
@@ -327,135 +400,146 @@ function split(userCard1, userCard2){
             div1.append(cardImg);
             
             if (reduceAce(userSum1, user_aceCount1) > 21) { //A, J, 8 -> 1 + 10 + 8
+                let userSum1_Aceless = reduceAce(userSum1, user_aceCount1);
+                document.getElementById("top_userSum").innerText = userSum1_Aceless + "/" + userSum1;
                 canHit1 = false;
-                // splitStand(1);
-                message_winLoss(1);
+                remove(hit_btn1);
+                remove(stand_btn1);
+                return;
             }
-            
-            let userSum1_Aceless = reduceAce(userSum1, user_aceCount1);
+            userSum1_Aceless = reduceAce(userSum1, user_aceCount1);
             document.getElementById("top_userSum").innerText = userSum1_Aceless + "/" + userSum1;
-
         }
         
         if(handNumber == 2){
             if (!canHit2) {
-                remove(hit_btn2);
-                message_winLoss(2);
-
-                return;
+                splitStand(2);
             }
 
             userSum2 += cardNumber(card);
             user_aceCount2 += checkAce(card);
             div2.append(cardImg);
             
-            if (reduceAce(userSum2, user_aceCount2) > 21) { //A, J, 8 -> 1 + 10 + 8
-                canHit2 = false;
-                // splitStand(2);
-                message_winLoss(2);
-            }
-
             let userSum2_Aceless = reduceAce(userSum2, user_aceCount2);
+
+            if (reduceAce(userSum2, user_aceCount2) > 21) { //A, J, 8 -> 1 + 10 + 8
+                document.getElementById("bottom_userSum").innerText = userSum2_Aceless + "/" + userSum2;
+                canHit2 = false;
+                remove(hit_btn2);
+                remove(stand_btn2);
+                splitStand(2);
+                return;
+            }
+            userSum2_Aceless = reduceAce(userSum2, user_aceCount2);
             document.getElementById("bottom_userSum").innerText = userSum2_Aceless + "/" + userSum2;
         }
     }
-
+  
     function splitStand(handNumber){
-
+        // showDealer();
+        console.log(handNumber);
+        this.handNumber = handNumber;
+        console.log(handNumber);
+        dealer_sumAceless = reduceAce(dealerSum, dealer_aceCount);
+        user_sumAceless1 = reduceAce(userSum1, user_aceCount1);
+        user_sumAceless2 = reduceAce(userSum2, user_aceCount2);      
+     
         if(handNumber == 1){
-            userSum1 = reduceAce(userSum1, user_aceCount1);
-            canHit1 = false;
+            if (user_sumAceless1 > 21) {
+                message1 = "You Lose!";
+            }
+            else if (dealer_sumAceless > 21) {
+                message1 = "You win!";
+            }
+            else if (user_sumAceless1 == dealer_sumAceless) {
+                message1 = "Push!";
+            }
+            else if (user_sumAceless1 > dealer_sumAceless) {
+                message1 = "You Win!";
+            }
+            else if (user_sumAceless1 < dealer_sumAceless) {
+                message1 = "You Lose!";
+            }
+
             document.getElementById("top_userSum").innerText = userSum1;
-            message_winLoss(1);
-        }
+            document.getElementById("topResults").innerText = message1;   
+
+        }   
+        showDealer();
 
         if(handNumber == 2){
-            userSum2 = reduceAce(userSum, user_aceCount);
-            canHit2 = false;
-            document.getElementById("bottom_userSum").innerText = userSum1;
-            message_winLoss(2);
+            if (user_sumAceless2 > 21) {
+                message2 = "You Lose!";
+            }
+            else if (dealer_sumAceless > 21) {
+                message2 = "You win!";
+            }
+            else if (user_sumAceless2 == dealer_sumAceless) {
+                message2 = "Push!";
+            }
+            else if (user_sumAceless2 > dealer_sumAceless) {
+                message2 = "You Win!";
+            }
+            else if (user_sumAceless2 < dealer_sumAceless) {
+                message2 = "You Lose!";
+            }
+            // remove(hit_btn2);
+            // remove(stand_btn2);
+
+            document.getElementById("bottom_userSum").innerText = user_sumAceless2 + "/" + userSum2;
+            document.getElementById("bottomResults").innerText = message2;    
         }
     }
+    startNextRound = document.createElement("button");
+    startNextRound.id = "startRound";
+    startNextRound.textContent = "Retry";
+    startNextRound.style.width = "100px";
+    startNextRound.style.height = "50px";
+    startNextRound.style.backgroundColor = "goldenrod";
+    startNextRound.style.fontSize = "20px";
+    startNextRound.style.color = "black";
+    startNextRound.style.fontWeight = "bold";
+    document.getElementById("buttons").append(startNextRound);
 
-    function message_winLoss(handNumber){
-        let message = "";
+    startNextRound.addEventListener("click", () =>{
+        window.location.reload();
+    });
 
-        if(handNumber == 1){
-            if (userSum1 > 21) {
-                message = "You Lose!";
-            }
-            else if (dealerSum > 21) {
-                message = "You win!";
-            }
-            else if (userSum1 == dealerSum) {
-                message = "Push!";
-            }
-            else if (userSum1 > dealerSum) {
-                message = "You Win!";
-            }
-            else if (userSum1 < dealerSum) {
-                message = "You Lose!";
-            }
-            // document.getElementById("results").innerText = message;
-        }
 
-        if(handNumber == 2){
-            if (userSum2 > 21) {
-                message = "You Lose!";
-            }
-            else if (dealerSum > 21) {
-                message = "You win!";
-            }
-            else if (userSum2 == dealerSum) {
-                message = "Push!";
-            }
-            else if (userSum2 > dealerSum) {
-                message = "You Win!";
-            }
-            else if (userSum2 < dealerSum) {
-                message = "You Lose!";
-            }
-            // document.getElementById("results").innerText = message;
-        }
-        
-        dealerSum = reduceAce(dealerSum, dealer_aceCount);
+    function showDealer(){
+        dealer_sumAceless = reduceAce(dealerSum, dealer_aceCount);
         document.getElementById("hidden").src = "./cards/" + hidden + ".png";
-
-        while (dealerSum < 17 && canHit1 == false && canHit2 == false) {
+        while(reduceAce(dealerSum, dealer_aceCount) < 17){
             let cardImg = document.createElement("img");
             let card = deck.pop();
             cardImg.src = "./cards/" + card + ".png";
             dealerSum += cardNumber(card);
             dealer_aceCount += checkAce(card);
-            document.getElementById("dealerCards").append(cardImg);
-        }
-    
-        
-        document.getElementById("dealerSum").innerText = dealerSum;
-        
-        document.getElementById("results").innerText = message;
-
-    }
+            dealer_sumAceless += checkAce(card);
+            document.getElementById("dealerCards").append(cardImg);  
+        }     
+        document.getElementById("dealerSum").innerText = dealer_sumAceless + "/" + dealerSum;
+    }  
     
     hit_btn1.addEventListener("click", () => {     
         splitHit(1);       
-
     });
 
-    let standButton1 = document.getElementById("stand1").addEventListener("click", () => {            
+    stand_btn1.addEventListener("click", () => {            
+        remove(stand_btn1);
+        remove(hit_btn1);
         splitStand(1);
-        remove(standButton1);
-        
     });
 
-    let hitButton2 = document.getElementById("hit2").addEventListener("click", () => {            
+    hit_btn2.addEventListener("click", () => {            
         splitHit(2);
     });
     
-    // let standButton2 = document.getElementById("stand2").addEventListener("click", () => {            
-    //     stand();
-    //     remove(standButton);
-    // });
+    stand_btn2.addEventListener("click", () => { 
+        remove(stand_btn2)           
+        remove(hit_btn2);
+        splitStand(2);
+    });
     
 }
 
@@ -468,6 +552,4 @@ function double(betAmount){
 
 }
 
-function detectPairs(){
-    
-}
+

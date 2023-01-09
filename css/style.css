@@ -1,95 +1,55 @@
 body {
-    background-color: green;
-  
+    text-align: center;
 }
-
-/* #dealer {
-    width: 200px;
-    position: absolute;
-} */
-
-
-.container {
-    display: inline;
+ 
+h2 {
+    color: goldenrod;
 }
-
-#bjTable {
-    width: 1000px;
-    height: 600px;
-    margin-top: 100px;
-    position: absolute;
-
+ 
+.responsive {
+    width: 100%;
+    height: auto;
 }
-
-#tableContents {
-    position: absolute;
-    margin-top: 25px;
-    color:red;
-}
-
-#dealerHalf h2 {
-    margin-right: 50px;
-    margin-bottom: auto ;
-}
-
-#dealerHalf {
-    margin-top: 50px;
-    margin-left: 375px;
-    margin-bottom: 100px;
-}
-
-#dealerSum {
-    color: blue; 
-}
-
-#userHalf h2 {
-    margin-right: 50px;
-    margin-bottom: 50px;
-    margin-top: auto;
-}
-
-#userHalf {
-    margin-top: 50px;
-    margin-left: 375px;
-}
-
-#userSum {
-    color: blue; 
-}
-
+ 
 #dealerCards img {
-    height: 175px;
-    width: 125px;
+    height: 5%;
+    width: 5%;
     margin: 1px;
 }
 
 #userCards img {
-    height: 175px;
-    width: 125px;
+    height: 5%;
+    width: 5%;
     margin: 1px;
-    margin-top: 100px;
 }
-
+ 
 #hit {
     width: 100px;
     height: 50px;
     font-size: 20px;
-    margin-left: 385px;
+    background-color: goldenrod;
+    color: black;
+    font-weight: bold;
 }
-
+ 
 #stand {
     width: 100px;
     height: 50px;
     font-size: 20px;
-    margin-left: 20px;
+    background-color: goldenrod;
+    color: black;
+    font-weight: bold;
 }
-
-.splitButton {
+ 
+#split {
     width: 100px;
     height: 50px;
     font-size: 20px;
+    background-color: goldenrod;
+    color: black;
+    font-weight: bold;
 }
-
-h2 {
-    text-align: center;
+ 
+#mainDiv {
+    margin-top: 10%;
 }
