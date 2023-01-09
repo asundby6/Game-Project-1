@@ -4,22 +4,39 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/style.css"/>
+    <script src="https://sfxr.me/riffwave.js"></script>
+    <script src="https://sfxr.me/sfxr.js"></script>
     <title>Document</title>
 </head>
 <body>
-    <h2>Dealer: <span id="dealerSum"></span></h2>
-    <div id="dealerCards">
-        <img id="hidden" src="./cards/BACK.png">
+    <!-- <img id="dealer" src="dealerDuck.png"> -->
+    <div class="container">
+        <img id="bjTable" src="blackjack_table.png">
+        <div id="tableContents">
+            <div id="top">
+            <h2 id="dealer_sum">Dealer: <span id="dealerSum"></span></h2>
+            <div id="dealerHalf">
+                <div id="dealerCards">
+                    <img id="hidden" src="./cards/BACK.png">
+                </div>
+                </div>
+            </div> 
+            <div id="middle"></div>
+            <div id="bottom">
+            <div id="userHalf">   
+            <div id="userCards"></div>
+        </div>    
+        <p id="results"></p>
+        <h2 id="user_sum">You: <span id="userSum"></span></h2>
+        </div>
+        <div id="buttons">
+            <button id="hit">Hit</button>
+            <button id="stand">Stand</button>
+        </div>
     </div>
-    <h2>You: <span id="userSum"></span></h2>
-    <div id="userCards"></div>
-    <br>
-    <div id="buttons">
-    <button id="hit">Hit</button>
-    <button id="stand">Stand</button>
-    </div>
-    <p id="results"></p>
+</div>
+    
     <script src="js/app.js"></script>    
 </body>
 </html>

@@ -64,23 +64,28 @@
 
 //--------------------------------FUNCTIONS--------------------------------//
 
-        function getUsername(){
+function getUsername(){
             let keepLoggedIn = localStorage.getItem("keepLoggedIn");
 
             if(keepLoggedIn == "yes"){
                 currentUser = JSON.parse(localStorage.getItem("user"));
+                currentUserToStr = currentUser['username']
+                console.log("Local Storage User -> " + currentUser)
             }
             else{
                 currentUser = JSON.parse(sessionStorage.getItem("user"));
+                currentUserToStr = currentUser['username']
+                console.log("USER-> " + currentUser['username'])
+            }
 
-            }   
+            return currentUserToStr;
         }
 
         function Signout(){
             sessionStorage.removeItem("user");
             localStorage.removeItem("user");
             localStorage.removeItem("keepLoggedIn");
-            window.location = "home.html";
+            window.location = "login.html";
         }
 
 //------------------------------WINDOW LOADS----------------------------//
