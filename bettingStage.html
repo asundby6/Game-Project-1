@@ -35,7 +35,7 @@
                 <a class="nav-link" href="rules.html">Rules</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">Play Now!</a>
+                <a class="nav-link" href="bettingStage.html">Play Now!</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="history.html">Track Your Progress</a>
@@ -54,22 +54,43 @@
     </div>
 </nav>
 <body>
-<div id="mainDiv">
-    <h2 id="dealerSum">Dealer: <span id="dealerSum"></span></h2>
-    <div id="dealerCards">
-        <img id="hidden" src="./cards/BACK.png" class="responsive">
-    </div>
-    <div id="middle"></div>
-    <h2 id="userSum">You: <span id="userSum"></span></h2>
-    <div id="userCards"></div>
-    <br>
-    <div id="buttons">
-        <button class="btn btn-primary" id="hit">Hit</button>
-        <button class="btn btn-primary" id="stand">Stand</button>
-    </div>
-    <p id="results"></p>
- 
+<div id="upper">
+    <h3 id="amount_ofBet"></h3>
+    <h3 id="balanceTotal"></h3>
+    <h1 id="finalMessage"></h1>
 </div>
-    <script src="js/appNew.js"></script>
+<div id="middle">
+    <h3 id="dealerScore"></h3>
+    <div id="dealerCards">
+    </div>
+    <br>
+    <div id="userCards">
+    </div>
+    <h3 id="userScore"></h3>
+</div>
+<div id="bettingLane">
+    <div id="betBox">
+        <button id="betButton">Bet :</button> 
+        <h3 id="amount_ofBet"></h3>
+    </div>
+<div id="chipDiv">
+    <button id="whiteChip" type="betChip">10$
+        <img src="chipWhite.png" alt="whiteChip" width="50" height="50"/>
+    </button>
+    <button id="redChip" type="betChip">$50
+        <img src="chipRed.png" alt="redChip" width="50" height="50"/>
+    </button>
+    <button id="greenChip" type="betChip">$100
+        <img src="chipGreen.png" alt="greenChip" width="50" height="50"/>
+    </button>
+    <button id="blueChip" type="betChip">$500
+        <img src="chipBlue.png" alt="blueChip" width="50" height="50"/>
+    </button>
+    <button id="blackChip" type="betChip">$1000
+        <img src="chipBlack.png" alt="blackChip" width="50" height="50"/>
+    </button>
+    <button id="allIn">ALL IN</button>
+</div>
+<script src="js/appNew.js"></script>    
 </body>
 </html>

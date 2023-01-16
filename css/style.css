@@ -15,12 +15,15 @@ h2 {
     height: 5%;
     width: 5%;
     margin: 1px;
+
 }
 
 #userCards img {
     height: 5%;
     width: 5%;
     margin: 1px;
+
+
 }
  
 #hit {
@@ -52,4 +55,91 @@ h2 {
  
 #mainDiv {
     margin-top: 10%;
+}
+
+#bettingLane {
+    margin-top: 15%;
+}
+
+#chipDiv {
+    display: inline-flex;
+}
+
+#betBox {
+    color: tan;
+}
+
+#value {
+    color: tan;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+    appearance: none;
+    background-color: inherit;
+    margin-left: auto;
+    margin-right: auto;
+    color: tan;
+    font-size: larger;
+}
+
+
+
+#betBox button {
+    color: tan;
+    font-size: 20px;
+    border-radius: 5px;
+    border-width: 5px;
+    border-style:solid;
+    border-color: tan;;
+}
+
+#chipDiv button {
+    color: tan;
+}
+
+#middle {
+    margin-top: 1%;
+    
+}
+
+#amount_ofBet {
+    color: tan;
+    font-size: 35px;
+    
+}
+
+#balanceTotal {
+    color: tan;
+    font-size: 50px;
+}
+
+#upper{
+    font-size: 50px;
+}
+
+#dealerScore, #userScore {
+    color: tan;
+}
+
+#finalMessage {
+    color: white;
+    font-weight: 900;
+    
+}
+
+button:hover {
+    border-style: solid;
+}
+
+#dealer {
+    width: 100px;
+    height: 100px;
+}
+
+#allIn {
+    color: red;
+    border-width: 5px;
+    border-style: double;
 }
