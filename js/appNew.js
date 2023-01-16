@@ -325,6 +325,7 @@ function hit(total){
     // else if(hitTotal > 1){
 
     // }
+
     let doubleButton = document.getElementById("double");
     doubleButton.hidden = true;
     let hitButton = document.getElementById("hit");
@@ -418,8 +419,8 @@ function stand(){
         next_gameButton.textContent = "Play Again";
         document.getElementById("upper").append(next_gameButton);
         next_gameButton.addEventListener("click", () => {
-            sessionStorage.setItem("balanceTotal", 9999); //----------------------------------------------------------
-            window.location.reload();
+            sessionStorage.setItem("balanceTotal", 100); //-----------change this value to skip ahead levels----------------------------
+            window.location.reload();                 
         })
     }
 
