@@ -2,6 +2,14 @@ body {
     background-color: darkolivegreen;
 }
 .responsive {
-    width: 100%;
-    height: auto;
+    width: 45%;
+    height: 20%;
+    display: inline-block;
+    margin-left: 3%;
 }
+
+h3 {
+    color: white;
+    margin-left: 40%;
+}
+

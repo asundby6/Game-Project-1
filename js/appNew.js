@@ -12,7 +12,6 @@ function betting(balanceTotal){
     betTotal = 0;
     document.getElementById("balanceTotal").textContent = balanceTotal;
     maxBet = balanceTotal;
-
     if(balanceTotal > 1000){
         if(balanceTotal > 1000 && balanceTotal < 5000){
             newDealer = document.createElement("img");
@@ -222,6 +221,13 @@ function playGame(betAmount, balanceTotal){
     dealerDeck = new cardValue(dealer_card2);
     userDeck = new cardValue(user_card1);
     userDeck2 = new cardValue(user_card2);
+    if(userDeck.cardval == "A" || userDeck2.cardval == "A"){
+
+    }
+
+    if(dealerDeck == "A"){
+        
+    }
 
     scoreDealer = 0;
     scoreUser = 0;
